@@ -27,18 +27,30 @@ jobs:
       #run: docker push hub.ncsa.illinois.edu/dsrs-fs/test-repo:$(date +%s)
   
   pull_and_run:
+    needs: build_and_push ### This job will only run if the previous job is successful.
+    ### Could be done in parallel, only doing it this way to get the latest image (produced by the previous job).
     runs-on: ubuntu-latest
     
     steps:
-    - name: Log into the registry
-      run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_USERNAME }} --password ${{ secrets.NCSA_TOKEN }}
+      - uses: actions/checkout@v3
+  
+      - name: Install ngrok
+        run: |
+          wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+          unzip ngrok-stable-linux-amd64.zip
+  
+      - name: Run ngrok
+        run: ./ngrok http 3000
 
-    - name: Pull the Docker image
-      run: docker pull hub.ncsa.illinois.edu/dsrs-fs/test-repo
+      - name: Log into the registry
+        run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_USERNAME }} --password ${{ secrets.NCSA_TOKEN }}
 
-    - name: Run the Docker image
-      run: docker run --detach --publish 3000:80 hub.ncsa.illinois.edu/dsrs-fs/test-repo
+      - name: Pull the Docker image
+        run: docker pull hub.ncsa.illinois.edu/dsrs-fs/test-repo
 
-    - name: Expose the Docker image using ngrok
-      run: ngrok http 3000
-      
+      - name: Run the Docker image
+        run: docker run --detach --publish 3000:80 hub.ncsa.illinois.edu/dsrs-fs/test-repo
+
+      - name: Expose the Docker image using ngrok
+        run: ngrok http 3000
+        
