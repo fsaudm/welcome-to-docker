@@ -38,6 +38,9 @@ jobs:
         run: |
           wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
           unzip ngrok-stable-linux-amd64.zip
+      
+      - name: Log in NGROK
+        run: ./ngrok authtoken ${{ secrets.NGROK_TOKEN }}
   
       - name: Run ngrok
         run: ./ngrok http 3000
