@@ -9,10 +9,24 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag hub.ncsa.illinois.edu/dsrs-fs/test-repo
+      #run: docker build . --file Dockerfile --tag hub.ncsa.illinois.edu/dsrs-fs/test-repo:$(date +%s)
+
+
+  push:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Log into the registry
+      run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_USERNAME }} --password ${{ secrets.NCSA_TOKEN }}
+
+      
+    - name: Push the Docker image
+      run: docker push hub.ncsa.illinois.edu/dsrs-fs/test-repo
+      #run: docker push hub.ncsa.illinois.edu/dsrs-fs/test-repo:$(date +%s)
