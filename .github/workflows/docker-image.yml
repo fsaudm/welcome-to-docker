@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag hub.ncsa.illinois.edu/dsrs-fs/test-repo .
+      run: docker build . --file Dockerfile --tag hub.ncsa.illinois.edu/dsrs-fs/test-repo
       #run: docker build . --file Dockerfile --tag hub.ncsa.illinois.edu/dsrs-fs/test-repo:$(date +%s)
 
 
