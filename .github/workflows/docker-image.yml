@@ -25,3 +25,20 @@ jobs:
     - name: Push the Docker image
       run: docker push hub.ncsa.illinois.edu/dsrs-fs/test-repo
       #run: docker push hub.ncsa.illinois.edu/dsrs-fs/test-repo:$(date +%s)
+  
+  pull_and_run:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Log into the registry
+      run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_USERNAME }} --password ${{ secrets.NCSA_TOKEN }}
+
+    - name: Pull the Docker image
+      run: docker pull hub.ncsa.illinois.edu/dsrs-fs/test-repo
+
+    - name: Run the Docker image
+      run: docker run --detach --publish 3000:80 hub.ncsa.illinois.edu/dsrs-fs/test-repo
+
+    - name: Expose the Docker image using ngrok
+      run: ngrok http 3000
+      
