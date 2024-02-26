@@ -27,11 +27,11 @@ jobs:
       run: docker push hub.ncsa.illinois.edu/dsrs-fs/test-repo
       #run: docker push hub.ncsa.illinois.edu/dsrs-fs/test-repo:$(date +%s)
 
-    - name: Run ngrok image
-      run: docker run -e NGROK_AUTHTOKEN=${{ secrets.NGROK_TOKEN }} ngrok/ngrok http 3000
+    #- name: Run ngrok image
+    #  run: docker run -e NGROK_AUTHTOKEN=${{ secrets.NGROK_TOKEN }} ngrok/ngrok http 3000
 
-    - name: Run the built image
-      run: docker run --detach --publish 3000:80 hub.ncsa.illinois.edu/dsrs-fs/test-repo
+    #- name: Run the built image
+    #  run: docker run --detach --publish 3000:80 hub.ncsa.illinois.edu/dsrs-fs/test-repo
       
 
 
