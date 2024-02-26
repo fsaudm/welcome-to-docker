@@ -47,10 +47,10 @@ jobs:
       #   run: ./ngrok update
 
       - name: Log in NGROK
-        run: ./ngrok authtoken ${{ secrets.NGROK_TOKEN }}
+        run: ngrok authtoken ${{ secrets.NGROK_TOKEN }}
   
       - name: Run ngrok
-        run: ./ngrok http 3000
+        run: ngrok http 3000
 
       - name: Log into the registry
         run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_USERNAME }} --password ${{ secrets.NCSA_TOKEN }}
@@ -60,7 +60,4 @@ jobs:
 
       - name: Run the Docker image
         run: docker run --detach --publish 3000:80 hub.ncsa.illinois.edu/dsrs-fs/test-repo
-
-      - name: Expose the Docker image using ngrok
-        run: ngrok http 3000
         
