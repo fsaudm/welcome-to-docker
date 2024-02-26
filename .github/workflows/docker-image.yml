@@ -20,7 +20,7 @@ jobs:
       #### this tag does not work?? this part specifically: $(date +%s)
 
     - name: Log into the registry
-      run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_ROBOT_USER }} --password ${{ secrets.NCSA_ROBOT }}
+      run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_USERNAME }} --password ${{ secrets.NCSA_ROBOT }}
       #run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_USERNAME }} --password ${{ secrets.NCSA_TOKEN }}
 
     - name: Push the Docker image
