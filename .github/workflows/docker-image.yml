@@ -42,9 +42,9 @@ jobs:
         #   unzip ngrok-stable-linux-amd64.zip
         #   ./ngrok version
         run: docker pull ngrok/ngrok
-        
-      # - name: Update ngrok
-      #   run: ./ngrok update
+
+      - name: Run ngrok
+        run: docker run -e NGROK_AUTHTOKEN=${{ secrets.NGROK_TOKEN }} ngrok/ngrok http 3000
 
       - name: Log in NGROK
         run: ngrok authtoken ${{ secrets.NGROK_TOKEN }}
