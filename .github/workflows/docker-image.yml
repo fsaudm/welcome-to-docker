@@ -20,8 +20,8 @@ jobs:
       #### this tag does not work?? this part specifically: $(date +%s)
 
     - name: Log into the registry
-      #run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_USERNAME }} --password ${{ secrets.NCSA_ROBOT }}
-      run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_USERNAME }} --password ${{ secrets.NCSA_TOKEN }}
+      run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_ROBOT }} --password ${{ secrets.NCSA_ROBOT_PASSWORD }}
+      #run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_USERNAME }} --password ${{ secrets.NCSA_TOKEN }}
 
     - name: Push the Docker image
       run: docker push hub.ncsa.illinois.edu/dsrs-fs/test-repo
@@ -36,21 +36,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
   
-      - name: Install ngrok
-        # run: |
-        #   wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-        #   unzip ngrok-stable-linux-amd64.zip
-        #   ./ngrok version
-        run: docker pull ngrok/ngrok
+      # - name: Install ngrok
+      #   # run: |
+      #   #   wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+      #   #   unzip ngrok-stable-linux-amd64.zip
+      #   #   ./ngrok version
+      #   run: docker pull ngrok/ngrok
 
-      - name: Run ngrok
-        run: docker run -e NGROK_AUTHTOKEN=${{ secrets.NGROK_TOKEN }} ngrok/ngrok http 3000
+      # - name: Run ngrok
+      #   run: docker run -e NGROK_AUTHTOKEN=${{ secrets.NGROK_TOKEN }} ngrok/ngrok http 3000
 
-      - name: Log in NGROK
-        run: ngrok authtoken ${{ secrets.NGROK_TOKEN }}
+      # - name: Log in NGROK
+      #   run: ngrok authtoken ${{ secrets.NGROK_TOKEN }}
   
-      - name: Run ngrok
-        run: ngrok http 3000
+      # - name: Run ngrok
+      #   run: ngrok http 3000
 
       - name: Log into the registry
         run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_USERNAME }} --password ${{ secrets.NCSA_TOKEN }}
