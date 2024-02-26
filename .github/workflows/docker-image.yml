@@ -42,18 +42,15 @@ jobs:
         #   unzip ngrok-stable-linux-amd64.zip
         #   ./ngrok version
         run: docker pull ngrok/ngrok
-
-
         
-      - name: Update ngrok
-        run: ./ngrok update
+      # - name: Update ngrok
+      #   run: ./ngrok update
 
       - name: Log in NGROK
         run: ./ngrok authtoken ${{ secrets.NGROK_TOKEN }}
   
       - name: Run ngrok
         run: ./ngrok http 3000
-
 
       - name: Log into the registry
         run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_USERNAME }} --password ${{ secrets.NCSA_TOKEN }}
