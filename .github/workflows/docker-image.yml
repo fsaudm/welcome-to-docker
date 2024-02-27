@@ -16,7 +16,7 @@ jobs:
 
     ## USING BOT ACCOUNT - Bot expires in n days
     - name: Log in registry using robot
-      run:  echo ${{ secrets.NCSA_ROBOT_PASSWORD }} | docker login hub.ncsa.illinois.edu -u ${{ secrets.NCSA_ROBOT }} --password-stdin
+      run:  echo '${{ secrets.NCSA_ROBOT_PASSWORD }}' | docker login hub.ncsa.illinois.edu -u '${{ secrets.NCSA_ROBOT }}' --password-stdin
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag hub.ncsa.illinois.edu/dsrs-fs/test-repo
