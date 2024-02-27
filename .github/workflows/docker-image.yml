@@ -22,6 +22,7 @@ jobs:
     #- name: Log into the registry
     #  run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_USERNAME }} --password ${{ secrets.NCSA_TOKEN }}
 
+    ## USING BOT ACCOUNT
     - name: Log in registry using robot
       run: echo ${{ secrets.NCSA_ROBOT_PASSWORD }} | docker login hub.ncsa.illinois.edu -u ${{ secrets.NCSA_ROBOT }} --password-stdin
     
