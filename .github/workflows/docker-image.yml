@@ -14,6 +14,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    ## USING BOT ACCOUNT - Bot expires in n days
+    - name: Log in registry using robot
+      run:  echo ${{ secrets.NCSA_ROBOT_PASSWORD }} | docker login hub.ncsa.illinois.edu -u ${{ secrets.NCSA_ROBOT }} --password-stdin
+
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag hub.ncsa.illinois.edu/dsrs-fs/test-repo
       #run: docker build . --file Dockerfile --tag hub.ncsa.illinois.edu/dsrs-fs/test-repo:$(date +%s)
@@ -21,10 +25,6 @@ jobs:
 
     #- name: Log into the registry
     #  run: docker login hub.ncsa.illinois.edu --username ${{ secrets.NCSA_USERNAME }} --password ${{ secrets.NCSA_TOKEN }}
-
-    ## USING BOT ACCOUNT - Bot expires in n days
-    - name: Log in registry using robot
-      run:  echo ${{ secrets.NCSA_ROBOT_PASSWORD }} | docker login hub.ncsa.illinois.edu -u ${{ secrets.NCSA_ROBOT}}--password-stdin
     
     - name: Push the Docker image
       run: docker push hub.ncsa.illinois.edu/dsrs-fs/test-repo
